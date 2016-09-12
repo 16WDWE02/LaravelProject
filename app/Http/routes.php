@@ -12,3 +12,12 @@
 */
 
 Route::get('/', 'HomeController@index');
+
+Route::get('Shop', 'ShopController@index');
+Route::get('Shop/AddProduct', 'ShopController@add');
+Route::post('submit-product', 'ShopController@submit');
+
+Route::get('About', 'AboutController@index');
+
+Route::get('Contact', 'ContactController@index');
+
