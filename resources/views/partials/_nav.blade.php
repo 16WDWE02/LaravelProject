@@ -17,6 +17,7 @@
         <li><a href="/Shop">Shop</a></li>
         <li><a href="/About">About Us</a></li>
         <li><a href="/Contact">Contact</a></li>
+        <li><a href="/Cart">Cart</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">

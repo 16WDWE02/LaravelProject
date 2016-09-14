@@ -21,3 +21,5 @@ Route::get('About', 'AboutController@index');
 
 Route::get('Contact', 'ContactController@index');
 
+Route::get('Cart', 'CartController@index');
+
