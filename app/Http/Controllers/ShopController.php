@@ -11,7 +11,8 @@ use App\Products;
 class ShopController extends Controller
 {
     public function index(){
-    	return view('shop.index');
+        $AllProducts = Products::all();
+    	return view('shop.index', compact('AllProducts'));
     }
 
     public function add(){
@@ -22,15 +23,16 @@ class ShopController extends Controller
     	$this->validate($request,[
     		'product_title'=>'required|min:1|max:255',
     		'product_description'=>'required|min:10',
-            // 'product_image'=>'required|image',
+            'product_image'=>'required|image',
             'product_price'=>'required|numeric',
             'product_quantity'=>'required|numeric'
     	]);
 
         $newProduct = new Products();
         $newProduct->title = $request->product_title;
-        $newProduct->description = $request->description;
+        $newProduct->description = $request->product_description;
         $newProduct->price = $request->product_price;
+        
         $newProduct->quantity = $request->product_quantity;
 
         $manager = new ImageManager();
@@ -44,8 +46,9 @@ class ShopController extends Controller
         });
         $productImage->save($folder.'/'.$imagename.'.jpg', 100);
 
+        $newProduct->image = $imagename.'.jpg';
 
-        // $newProduct->save();
+        $newProduct->save();
         return redirect('/Shop');
     }
 }
