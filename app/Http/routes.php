@@ -16,6 +16,8 @@ Route::get('/', 'HomeController@index');
 Route::get('Shop', 'ShopController@index');
 Route::get('Shop/AddProduct', 'ShopController@add')->middleware('auth');
 Route::post('submit-product', 'ShopController@submit')->middleware('auth');
+Route::get('Shop/{id}', 'ShopController@show');
+Route::get('Shop/Delete-Product/{id}', 'ShopController@delete')->middleware('auth');
 
 Route::get('About', 'AboutController@index');
 

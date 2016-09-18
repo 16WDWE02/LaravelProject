@@ -41,7 +41,7 @@ class ShopController extends Controller
         $imagename = preg_replace("/[^0-9a-zA-Z]/", "", $request->product_title);
 
         $productImage = $manager->make($request->product_image);
-        $productImage->fit(462, 462, function ($constraint) {
+        $productImage->fit(300, 480, function ($constraint) {
             $constraint->upsize();
         });
         $productImage->save($folder.'/'.$imagename.'.jpg', 100);
@@ -49,6 +49,19 @@ class ShopController extends Controller
         $newProduct->image = $imagename.'.jpg';
 
         $newProduct->save();
+        return redirect('/Shop');
+    }
+
+    public function show($id){
+        $product = Products::findOrFail($id);
+        return view('shop.show', compact('product'));
+    }
+
+    public function delete($id){
+        $product = Products::findOrFail($id);
+        $productImage = $product['image'];
+        unlink("./images/Products/$productImage");
+        $product->delete();
         return redirect('/Shop');
     }
 }

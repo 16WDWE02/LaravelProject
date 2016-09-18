@@ -15,11 +15,11 @@
 <?php if(count($AllProducts) > 0): ?>
 	<?php foreach($AllProducts as $product): ?>
 		<div class="col-sm-4 col-xs-12">
-			<a href="">
+			<a href="Shop/{{$product->id}}">
 				<div class="thumbnail">
 					<h3>{{$product->title}}</h3>
-					<p>{{$product->description}}</p>
-					<img class="img-responsive" src="images/Products/{{$product->image}}">
+					<p>${{$product->price}}</p>
+					<img class="img-responsive" src="/images/Products/{{$product->image}}">
 				</div>
 			</a>
 		</div>
