@@ -9,10 +9,11 @@
 
 @section('content')
 <div class="col-xs-12">
-	<p><a class="btn btn-danger" href="Delete-Product/{{$product->id}}">Delete Product</a></p>
+	<p>
+		<a class="btn btn-primary" href="Edit-Product/{{$product->id}}">Edit Product</a>
+		<a class="btn btn-danger" href="Delete-Product/{{$product->id}}">Delete Product</a>
+	</p>
 </div>
-
-
 
 <div class="col-md-6 col-xs-12">
 	<img class="img-responsive" src="/images/Products/{{$product->image}}">
@@ -25,6 +26,7 @@
 	<form action="" method="post">
 		<div class="form-group">
 			<select name="size" class="form-control">
+				<option value="">Choose a Size</option>
 				<option value="xs">Extra Small</option>
 				<option value="sm">Small</option>
 				<option value="md">Medium</option>
