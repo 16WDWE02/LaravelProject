@@ -25,7 +25,8 @@ Route::get('About', 'AboutController@index');
 
 Route::get('Contact', 'ContactController@index');
 
-Route::get('Cart', 'CartController@index');
+Route::get('Cart', 'CartController@index')->middleware('auth');
+Route::post('Cart/Add/{id}', 'CartController@add')->middleware('auth');
 
 Route::auth();
 
