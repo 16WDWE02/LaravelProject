@@ -22,7 +22,15 @@
 				</tr>
 			</thead>
 			<tbody>
-
+				@foreach($Cart as $CartRow)
+					<tr>
+						<td>{{ $CartRow->product->title }} - Size {{ $CartRow->size }}</td>
+						<td>${{ $CartRow->product->price }}</td>
+						<td>{{ $CartRow->quantity }}</td>
+						<td>${{ $CartRow->subtotal }}</td>
+						<td></td>
+					</tr>
+				@endforeach
 			</tbody>
 			<tfoot>
 				<tr>
