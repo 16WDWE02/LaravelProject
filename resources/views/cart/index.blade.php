@@ -24,21 +24,21 @@
 			<tbody>
 				@foreach($Cart as $CartRow)
 					<tr>
-						<td>{{ $CartRow->product->title }} - Size {{ $CartRow->size }}</td>
+						<td><a href="/Shop/{{$CartRow->product_id}}">{{ $CartRow->product->title }}</a> - Size {{ $CartRow->size }}</td>
 						<td>${{ $CartRow->product->price }}</td>
 						<td>{{ $CartRow->quantity }}</td>
 						<td>${{ $CartRow->subtotal }}</td>
-						<td></td>
+						<td><a href="/Cart/Remove/{{$CartRow->id}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
 					</tr>
 				@endforeach
 			</tbody>
 			<tfoot>
 				<tr>
-					<td>Continue Shoping</td>
+					<td><a href="/Shop" class="btn btn-warning">Continue Shoping</a></td>
 					<td></td>
 					<td></td>
 					<td></td>
-					<td>Checkout</td>
+					<td><a href="" class="btn btn-success">Checkout</a></td>
 				</tr>
 			</tfoot>
 		</table>

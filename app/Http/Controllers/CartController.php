@@ -85,6 +85,17 @@ class CartController extends Controller
     		return redirect("/Cart");
 
     	};
-    	
+
+    }
+
+    public function remove($id){
+    	$cartItem = Cart::where('id', '=', $id)->firstOrFail();
+    	$product = Products::where('id', '=', $cartItem['product_id'])->firstOrFail();
+    	$product->quantity = $product['quantity'] + $cartItem['quantity'];
+    	$product->save();
+    	$cartItem->delete();
+
+    	Session::flash('RemoveCart', 'Item was successfully removed from your cart');
+    	return redirect('/Cart');
     }
 }
