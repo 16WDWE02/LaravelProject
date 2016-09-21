@@ -42,7 +42,7 @@
 			{!! $errors->first('quantity', '<span class="help-block">:message</span>')!!}
 		</div>
 
-		<button class="btn btn-primary" type="submit">Add to cart</button>
+		<button class="btn btn-primary" type="submit" name="addtocart">Add to cart</button>
 	</form>
 
 </div>
