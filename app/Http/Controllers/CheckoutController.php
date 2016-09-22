@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Orders;
+use App\Cart;
+use App\Orders_Products;
 use Braintree_Configuration;
 use Braintree_ClientToken;
 use Braintree_Transaction;
+use Session;
 
 Braintree_Configuration::environment(env('BRAINTREE_ENV'));
 Braintree_Configuration::merchantId(env('BRAINTREE_MERCHANTID'));
@@ -27,7 +31,7 @@ class CheckoutController extends Controller
     public function transaction($id){
     	$clientToken = Braintree_ClientToken::generate();
     	$user = User::where('id', '=', $id)->firstOrFail();
-    	$use = $user->UserCart;
+    	$UserCart = $user->UserCart;
     	$Grandtotal = $user->UserCart->sum('subtotal');
 
     	$nonce = $_POST['payment_method_nonce'];
@@ -42,7 +46,27 @@ class CheckoutController extends Controller
 
     	if($result->success){
     		$settledTransaction = $result->transaction;
-    		print_r($result);
+    		
+    		//Add new Order
+    		$order = new Orders();
+    		$order->user_id = $id;
+    		$order->grandtotal = $Grandtotal;
+    		$order->save();
+    		$order_ID = $order->id;
+    		foreach($UserCart as $CartItem){
+    			$order_product = new Orders_Products();
+    			$order_product->order_id = $order_ID;
+    			$order_product->product_id = $CartItem->product_id;
+    			$order_product->quantity = $CartItem->quantity;
+    			$order_product->size = $CartItem->size;
+    			$order_product->subtotal = $CartItem->subtotal;
+    			$order_product->save();
+
+    			$CartItem->delete();
+    		}
+    		Session::flash('PaymentSuccess', 'Thank you for your transaction');
+    		return redirect('/');
+
     	} else{
     		print_r($result->errors);
     	}
