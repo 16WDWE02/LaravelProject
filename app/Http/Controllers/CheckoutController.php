@@ -23,4 +23,28 @@ class CheckoutController extends Controller
     	$Grandtotal = $user->UserCart->sum('subtotal');
     	return view('checkout.index', compact('Cart', 'Grandtotal'));
     }
+
+    public function transaction($id){
+    	$clientToken = Braintree_ClientToken::generate();
+    	$user = User::where('id', '=', $id)->firstOrFail();
+    	$use = $user->UserCart;
+    	$Grandtotal = $user->UserCart->sum('subtotal');
+
+    	$nonce = $_POST['payment_method_nonce'];
+
+    	$result = Braintree_Transaction::sale([
+    		'amount' => $Grandtotal,
+    		'paymentMethodNonce' => 'fake-valid-nonce',
+    		'options' => [
+    			'submitForSettlement' => true
+    		]
+    	]);
+
+    	if($result->success){
+    		$settledTransaction = $result->transaction;
+    		print_r($result);
+    	} else{
+    		print_r($result->errors);
+    	}
+    }
 }
