@@ -31,6 +31,13 @@
 						<td><a href="/Cart/Remove/{{$CartRow->id}}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
 					</tr>
 				@endforeach
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><strong>Grandtotal</strong></td>
+					<td><strong>$ {{ $Grandtotal }}</strong></td>
+				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -38,7 +45,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><a href="" class="btn btn-success">Checkout</a></td>
+					<td><a href="/Checkout/{{ \Auth::user()->id }}" class="btn btn-success">Checkout</a></td>
 				</tr>
 			</tfoot>
 		</table>
